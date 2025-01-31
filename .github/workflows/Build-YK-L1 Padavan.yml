@@ -37,13 +37,13 @@ jobs:
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
     - name: Clone source code
       run: |
-        git clone --depth=1 https://github.com/selfcan/Padavan-newedition.git /opt/rt-n56u
+        git clone --depth=1 https://github.com/h8820/Padavan-KVR-vb1980.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
     - name: Build Firmware
       env:
-        TNAME: HC5861
+        TNAME: YK-L1
       run: |
         cd /opt/rt-n56u/trunk
         if [ ! -f configs/templates/$TNAME.config ] ; then
@@ -81,10 +81,10 @@ jobs:
         echo "CONFIG_FIRMWARE_INCLUDE_WIREGUARD=y" >> .config #wireguard ~10k
         ##内网穿透服务##
         echo "CONFIG_FIRMWARE_INCLUDE_ALDRIVER=y" >> .config  #ALDRIVER  ~3m
-        echo "CONFIG_FIRMWARE_INCLUDE_MENTOHUST=n" >> .config #mentohust
+        echo "CONFIG_FIRMWARE_INCLUDE_MENTOHUST=y" >> .config #mentohust
         
         ##流控QOS##
-        echo "CONFIG_FIRMWARE_INCLUDE_SQM=y" >> .config #SQM QOS
+        echo "CONFIG_FIRMWARE_INCLUDE_SQM=n" >> .config #SQM QOS
         #CPU超频##
         echo "CONFIG_FIRMWARE_INCLUDE_OC=n" >> .config #CPU超频开关
         echo 'CONFIG_FIRMWARE_MT7621_OC="0x312"' >> .config #此处填写对应频率的十六进制：1000Mhz=0x312 1100Mhz=0x362 1120Mhz=0x372 1200Mhz=0x3B2
